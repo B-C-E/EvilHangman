@@ -6,19 +6,23 @@ package pack;
 // to keep its options open.  You can change the setting for SHOW_COUNT to see
 // how many options are still left on each turn.
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.io.*;
 
 public class HangmanMain {
-    public static final String DICTIONARY_FILE = "dictionary2.txt";
-    public static final boolean DEBUG = true; // show words left
+    public static final String DICTIONARY_FILE = "dictionary.txt";
+    public static final boolean DEBUG = false; // show words left
 
     public static void main(String[] args) throws FileNotFoundException {
         System.out.println("Welcome to the cs 145 hangman game.");
         System.out.println();
 
         // open the dictionary file and read dictionary into an ArrayList
-        Scanner input = new Scanner(new File(DICTIONARY_FILE));
+        Path currentRelativePath = Paths.get("");
+        String s = currentRelativePath.toAbsolutePath().toString();
+        Scanner input = new Scanner(new File(s+"/src/pack/"+DICTIONARY_FILE));
         List<String> dictionary = new ArrayList<String>();
         while (input.hasNext()) {
             dictionary.add(input.next().toLowerCase());
