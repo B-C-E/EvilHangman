@@ -80,6 +80,8 @@ public class HangmanManager implements ManagerInterface
         return toReturn;
     }//emd of pattern
 
+
+    //records a guess, and determines which words to use going forward
     public int record(char guess)
     {
         guesses.add(guess);
@@ -141,7 +143,6 @@ public class HangmanManager implements ManagerInterface
 
         //set up all the fields so that they are good
         words = families.get(largestFamily);
-        max--;
 
         //return the number of times char showed up in the largest family AND setup the "family" field for this class
         int count = 0;
@@ -167,6 +168,12 @@ public class HangmanManager implements ManagerInterface
                     this.family = this.family.substring(0, i) + guess + this.family.substring(i + 1);
                 }
             }
+        }
+
+        //if they guessed wrong, decrement their guesses
+        if (count == 0)
+        {
+            max--;
         }
 
         return count;
