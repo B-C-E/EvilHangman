@@ -21,6 +21,8 @@ public class HangmanMain
 
     public static void main(String[] args) throws FileNotFoundException
     {
+        List<String> dictionary2 = null;
+
         System.out.println("Welcome to the cs 145 hangman game!");
         System.out.println();
 
@@ -33,16 +35,23 @@ public class HangmanMain
             System.out.println("Please place the file.");
             System.out.println("Has the file been placed?");
         }
-        // open the dictionary file and read dictionary into an ArrayList
-        Path location = Paths.get(System.getProperty("user.home") + "/Downloads/dictionary.txt");
-        Scanner input = new Scanner(location.toFile());
-        List<String> dictionary = new ArrayList<String>();
-        while (input.hasNext())
+        try
         {
-            dictionary.add(input.next().toLowerCase());
+            // open the dictionary file and read dictionary into an ArrayList
+            Path location = Paths.get(System.getProperty("user.home") + "/Downloads/dictionary.txt");
+            Scanner input = new Scanner(location.toFile());
+            List<String> dictionary = new ArrayList<String>();
+            while (input.hasNext())
+            {
+                dictionary.add(input.next().toLowerCase());
+            }
+            dictionary2 = Collections.unmodifiableList(dictionary);
         }
-        List<String> dictionary2 = Collections.unmodifiableList(dictionary);
-
+        catch (Exception e)
+        {
+            System.out.println("The file does not exist. Please try again...  :(");
+            return;
+        }
 
         //Game loop
         do
@@ -70,6 +79,8 @@ public class HangmanMain
 
         } while (GetInput.getYN() == 'y');
         //end of game loop
+
+        System.out.println("Have a nice day!");
     }//end of main
 
     // Plays one game with the user
@@ -108,7 +119,7 @@ public class HangmanMain
             }
             System.out.println();
         }
-    }
+    }//end of PlayGame
 
     // reports the results of the game, including showing the answer
     public static void showResults(HangmanManager hangman)
@@ -124,5 +135,5 @@ public class HangmanMain
         {
             System.out.println("Sorry, you lose...");
         }
-    }
-}
+    }//end of showResults
+}//end of HangmanMain
